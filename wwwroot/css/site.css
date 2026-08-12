@@ -3,7 +3,11 @@
    de Redis (Pico.css + acento de marca), pra comparar os dois lado
    a lado. */
 
-:root {
+/* Pico define o tema claro em ":root:not([data-theme=dark]), [data-theme=light]"
+   — especificidade (0,2,0). Um ":root" puro (0,1,0) perde pra essa regra mesmo
+   vindo depois no cascade. Repete o atributo aqui pra igualar a especificidade
+   e garantir que essas variáveis vençam. */
+:root[data-theme="light"] {
     /* Pico sobe pra 125% em telas largas (>=1280px); trava um valor fixo menor
        pra não parecer "com zoom" em monitor comum. */
     --pico-font-size: 87.5%;
@@ -155,8 +159,38 @@ body {
 
 .actions-cell {
     display: flex;
+    align-items: center;
     gap: 0.5rem;
     justify-content: flex-end;
+}
+
+/* O botão Excluir vem dentro de um <form> (precisa de POST próprio);
+   sem isso o form vira uma caixa a mais no flex e desalinha a altura
+   em relação ao link "Editar", que não tem esse wrapper. */
+.actions-cell form {
+    display: contents;
+}
+
+.actions-cell a[role="button"],
+.actions-cell button {
+    margin: 0;
+    line-height: 1;
+    /* Pico dá width:100% a button[type=submit] por padrão (bom pra forms
+       isolados, ruim aqui dentro de um flex ao lado de outro botão). */
+    width: auto;
+    flex: none;
+}
+
+.form-actions {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+
+.form-actions button,
+.form-actions a[role="button"] {
+    width: auto;
+    flex: none;
 }
 
 .btn-danger-outline {
