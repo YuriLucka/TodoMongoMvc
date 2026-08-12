@@ -4,21 +4,22 @@
     ViewData["Title"] = "Nova tarefa";
 }
 
-<h1>Nova tarefa</h1>
+<h2>Nova tarefa</h2>
 
 <form asp-action="Create" method="post">
-    <div class="mb-3">
-        <label asp-for="Title" class="form-label"></label>
-        <input asp-for="Title" class="form-control" required />
-    </div>
-    <div class="mb-3">
-        <label asp-for="Description" class="form-label"></label>
-        <textarea asp-for="Description" class="form-control"></textarea>
-    </div>
-    <div class="mb-3 form-check">
-        <input asp-for="IsDone" class="form-check-input" />
-        <label asp-for="IsDone" class="form-check-label"></label>
-    </div>
-    <button type="submit" class="btn btn-primary">Salvar</button>
-    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+    <label asp-for="Title">Título</label>
+    <input asp-for="Title" required />
+
+    <label asp-for="Description">Descrição</label>
+    <textarea asp-for="Description"></textarea>
+
+    <fieldset>
+        <label>
+            <input asp-for="IsDone" type="checkbox" role="switch" />
+            Já concluída
+        </label>
+    </fieldset>
+
+    <button type="submit">Salvar</button>
+    <a asp-action="Index" role="button" class="secondary outline">Cancelar</a>
 </form>

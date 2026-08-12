@@ -1,31 +1,194 @@
-html {
-  font-size: 14px;
-}
+/* Tema claro com um verde suave (inspirado na marca MongoDB, mas
+   dessaturado) como destaque — mesma linha visual do projeto irmão
+   de Redis (Pico.css + acento de marca), pra comparar os dois lado
+   a lado. */
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
+:root {
+    /* Pico sobe pra 125% em telas largas (>=1280px); trava um valor fixo menor
+       pra não parecer "com zoom" em monitor comum. */
+    --pico-font-size: 87.5%;
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
+    --pico-font-family-sans-serif: system-ui, "Segoe UI", Roboto, sans-serif;
+    --pico-font-family-monospace: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
-html {
-  position: relative;
-  min-height: 100%;
+    --pico-background-color: #fafaf8;
+    --pico-color: #23262b;
+    --pico-h1-color: #171a1b;
+    --pico-h2-color: #171a1b;
+    --pico-muted-color: #6b7280;
+    --pico-muted-border-color: #e2e6e1;
+
+    --pico-card-background-color: #ffffff;
+    --pico-card-border-color: #e2e6e1;
+    --pico-card-box-shadow: none;
+
+    --pico-table-border-color: #e2e6e1;
+    --pico-table-row-stripped-background-color: #f5f7f4;
+
+    --pico-form-element-background-color: #ffffff;
+    --pico-form-element-border-color: #d6dbd3;
+    --pico-form-element-color: #23262b;
+    --pico-form-element-placeholder-color: #9a9da3;
+
+    --pico-primary: #4e9e74;
+    --pico-primary-background: #4e9e74;
+    --pico-primary-border: #4e9e74;
+    --pico-primary-hover: #3d8961;
+    --pico-primary-hover-background: #3d8961;
+    --pico-primary-hover-border: #3d8961;
+    --pico-primary-inverse: #ffffff;
+    --pico-primary-focus: rgba(78, 158, 116, 0.25);
+
+    --danger: #c85a4a;
+    --danger-hover: #b04a3c;
+    --status-done: #4e9e74;
+    --status-pending: #b08a3c;
 }
 
 body {
-  margin-bottom: 60px;
+    background: #fafaf8;
 }
 
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
-  color: var(--bs-secondary-color);
-  text-align: end;
+.app-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    padding: 1.5rem 0 1rem;
+    border-bottom: 1px solid var(--pico-muted-border-color);
+    margin-bottom: 1.5rem;
 }
 
-.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
-  text-align: start;
+.app-header h1 {
+    margin: 0;
+    font-size: 1.5rem;
+    letter-spacing: -0.01em;
+}
+
+.eyebrow {
+    display: block;
+    font-family: var(--pico-font-family-monospace);
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--pico-primary);
+    margin-bottom: 0.35rem;
+}
+
+.header-nav {
+    display: flex;
+    gap: 1.25rem;
+}
+
+.header-nav a {
+    font-size: 0.85rem;
+    color: var(--pico-muted-color);
+    text-decoration: none;
+}
+
+.header-nav a:hover {
+    color: var(--pico-primary);
+}
+
+.toolbar {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 1rem;
+}
+
+/* Lista rola dentro dessa caixa; o resto da página fica parado no lugar */
+.table-scroll {
+    max-height: calc(100vh - 18rem);
+    overflow-y: auto;
+    border: 1px solid var(--pico-muted-border-color);
+    border-radius: var(--pico-border-radius);
+}
+
+.table-scroll table {
+    margin-bottom: 0;
+}
+
+.table-scroll thead th {
+    position: sticky;
+    top: 0;
+    background: var(--pico-card-background-color);
+    z-index: 1;
+}
+
+.date-cell {
+    font-family: var(--pico-font-family-monospace);
+    font-size: 0.85rem;
+    color: var(--pico-muted-color);
+    white-space: nowrap;
+}
+
+/* Badge de status: mesma ideia do badge de cache no projeto de Redis —
+   um indicador rápido de ler, sem precisar entrar na tarefa. */
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.25rem 0.65rem;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    border: 1px solid var(--pico-muted-border-color);
+    background: var(--pico-card-background-color);
+    white-space: nowrap;
+}
+
+.status-badge .dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    flex: none;
+}
+
+.status-badge.done { color: var(--status-done); }
+.status-badge.done .dot { background: var(--status-done); }
+
+.status-badge.pending { color: var(--status-pending); }
+.status-badge.pending .dot { background: var(--status-pending); }
+
+.row-done td:first-child {
+    text-decoration: line-through;
+    color: var(--pico-muted-color);
+}
+
+.actions-cell {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: flex-end;
+}
+
+.btn-danger-outline {
+    --pico-primary: var(--danger);
+    --pico-primary-hover: var(--danger-hover);
+    --pico-primary-focus: rgba(200, 90, 74, 0.25);
+}
+
+.stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+
+.stat-grid .stat {
+    padding: 1rem;
+    border: 1px solid var(--pico-muted-border-color);
+    border-radius: var(--pico-border-radius);
+    background: var(--pico-card-background-color);
+}
+
+.stat-grid .stat .label {
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--pico-muted-color);
+    display: block;
+    margin-bottom: 0.35rem;
+}
+
+.stat-grid .stat .value {
+    font-size: 1rem;
+    color: var(--pico-h1-color);
 }

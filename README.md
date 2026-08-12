@@ -8,6 +8,7 @@ MVP de estudo: ASP.NET Core MVC + MongoDB. CRUD simples de lista de tarefas, sem
 - [MongoDB.Driver](https://www.nuget.org/packages/MongoDB.Driver) (driver oficial, sem ORM/EF)
 - MongoDB rodando em container Docker
 - [mongo-express](https://github.com/mongo-express/mongo-express) — GUI web pra inspecionar os documentos
+- [Pico.css](https://picocss.com) (vendorizado localmente) + tema claro próprio, acento num verde suave (inspirado na marca MongoDB) — badge de status pra cada tarefa, sem Bootstrap/jQuery
 
 ## Estrutura
 
@@ -34,7 +35,7 @@ docker compose up -d
 dotnet run
 ```
 
-Acesse `http://localhost:5050/Todo` (rota default) para o CRUD, e `http://localhost:8081` para ver os documentos crus no Mongo.
+Acesse `http://localhost:5050/Todo` (rota default) para o CRUD. A página "Sobre" (`/Home`) explica o projeto pra quem chegar sem contexto. `http://localhost:8081` mostra os documentos crus no Mongo.
 
 Connection string e nomes de database/collection ficam em `appsettings.json`, seção `MongoDb`.
 
@@ -44,3 +45,7 @@ Connection string e nomes de database/collection ficam em `appsettings.json`, se
 - Cada `TodoItem` é serializado como documento BSON. `[BsonId]` + `[BsonRepresentation(BsonType.ObjectId)]` mapeiam o `_id` (ObjectId nativo do Mongo) pra `string` no C#.
 - CRUD via `IMongoCollection<T>`: `Find`, `InsertOneAsync`, `ReplaceOneAsync`, `DeleteOneAsync`, com filtros em LINQ (`t => t.Id == id`) traduzidos pelo driver.
 - `TodoService` é singleton no DI — `MongoClient` é thread-safe e caro de criar, então uma instância serve toda a app.
+
+## Projeto irmão
+
+Existe também o [LeaderboardRedisMvc](https://github.com/YuriLucka/LeaderboardRedisMvc), mesma ideia mas com Redis — bom pra comparar como cada banco NoSQL resolve um problema diferente: aqui o Mongo guarda documento estruturado (fonte de verdade); lá o Redis vira estrutura de ranking e cache (acelerar leitura).

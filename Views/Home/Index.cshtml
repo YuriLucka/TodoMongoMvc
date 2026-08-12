@@ -1,8 +1,50 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+@{
+    ViewData["Title"] = "Sobre";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<h2>Sobre este projeto</h2>
+
+<p>
+    MVP de estudo pra ver o MongoDB funcionando de verdade dentro de um app ASP.NET Core MVC.
+    Sem autenticação, sem camada de repositório extra — o objetivo é ver a API do driver
+    oficial do Mongo direto, sem abstração no meio.
+</p>
+
+<div class="stat-grid">
+    <div class="stat">
+        <span class="label">Modelo de dados</span>
+        <span class="value">Documento (BSON)</span>
+    </div>
+    <div class="stat">
+        <span class="label">Sem schema fixo</span>
+        <span class="value">Database/collection criados na 1ª escrita</span>
+    </div>
+    <div class="stat">
+        <span class="label">CRUD</span>
+        <span class="value">Find, InsertOne, ReplaceOne, DeleteOne</span>
+    </div>
 </div>
+
+<h3>Stack</h3>
+<ul>
+    <li>ASP.NET Core MVC (.NET 10)</li>
+    <li><a href="https://www.nuget.org/packages/MongoDB.Driver" target="_blank" rel="noopener">MongoDB.Driver</a> — driver oficial, sem ORM/EF</li>
+    <li>MongoDB via Docker Compose</li>
+    <li><a href="https://picocss.com" target="_blank" rel="noopener">Pico.css</a> vendorizado localmente, sem build step</li>
+</ul>
+
+<h3>Como rodar</h3>
+<pre><code>docker compose up -d   # MongoDB (27017)
+dotnet run</code></pre>
+
+<h3>Projeto irmão</h3>
+<p>
+    Existe também o <a href="https://github.com/YuriLucka/LeaderboardRedisMvc" target="_blank" rel="noopener">LeaderboardRedisMvc</a>,
+    mesma ideia mas com Redis — dá pra comparar como cada banco NoSQL resolve um problema diferente:
+    aqui o Mongo guarda documento estruturado (dado de negócio); lá o Redis vira estrutura de
+    ranking e cache (acelerar leitura, não é fonte de verdade).
+</p>
+
+<p>
+    <a href="https://github.com/YuriLucka/TodoMongoMvc" target="_blank" rel="noopener">Código-fonte no GitHub</a>
+</p>

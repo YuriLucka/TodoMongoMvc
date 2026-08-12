@@ -4,37 +4,55 @@
     ViewData["Title"] = "Tarefas";
 }
 
-<h1>Tarefas</h1>
+<div class="toolbar">
+    <a asp-action="Create" role="button">Nova tarefa</a>
+</div>
 
-<p>
-    <a asp-action="Create" class="btn btn-primary">Nova tarefa</a>
-</p>
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>Título</th>
-            <th>Descrição</th>
-            <th>Feita?</th>
-            <th>Criada em</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-    @foreach (var todo in Model)
-    {
-        <tr>
-            <td>@todo.Title</td>
-            <td>@todo.Description</td>
-            <td>@(todo.IsDone ? "Sim" : "Não")</td>
-            <td>@todo.CreatedAt.ToLocalTime()</td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@todo.Id" class="btn btn-sm btn-secondary">Editar</a>
-                <form asp-action="Delete" asp-route-id="@todo.Id" method="post" style="display:inline">
-                    <button type="submit" class="btn btn-sm btn-danger">Excluir</button>
-                </form>
-            </td>
-        </tr>
-    }
-    </tbody>
-</table>
+@if (Model.Count == 0)
+{
+    <p><em>Nenhuma tarefa ainda. Cria a primeira aí em cima.</em></p>
+}
+else
+{
+    <div class="table-scroll">
+        <table>
+            <thead>
+                <tr>
+                    <th>Título</th>
+                    <th>Descrição</th>
+                    <th>Status</th>
+                    <th>Criada em</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var todo in Model)
+            {
+                <tr class="@(todo.IsDone ? "row-done" : "")">
+                    <td>@todo.Title</td>
+                    <td>@todo.Description</td>
+                    <td>
+                        @if (todo.IsDone)
+                        {
+                            <span class="status-badge done"><span class="dot"></span> concluída</span>
+                        }
+                        else
+                        {
+                            <span class="status-badge pending"><span class="dot"></span> pendente</span>
+                        }
+                    </td>
+                    <td class="date-cell">@todo.CreatedAt.ToLocalTime().ToString("dd/MM/yyyy HH:mm")</td>
+                    <td>
+                        <div class="actions-cell">
+                            <a asp-action="Edit" asp-route-id="@todo.Id" role="button" class="secondary outline">Editar</a>
+                            <form asp-action="Delete" asp-route-id="@todo.Id" method="post">
+                                <button type="submit" class="btn-danger-outline outline">Excluir</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+}
