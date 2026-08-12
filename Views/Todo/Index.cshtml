@@ -1,0 +1,40 @@
+@model List<TodoMongoMvc.Models.TodoItem>
+
+@{
+    ViewData["Title"] = "Tarefas";
+}
+
+<h1>Tarefas</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Nova tarefa</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Título</th>
+            <th>Descrição</th>
+            <th>Feita?</th>
+            <th>Criada em</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var todo in Model)
+    {
+        <tr>
+            <td>@todo.Title</td>
+            <td>@todo.Description</td>
+            <td>@(todo.IsDone ? "Sim" : "Não")</td>
+            <td>@todo.CreatedAt.ToLocalTime()</td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@todo.Id" class="btn btn-sm btn-secondary">Editar</a>
+                <form asp-action="Delete" asp-route-id="@todo.Id" method="post" style="display:inline">
+                    <button type="submit" class="btn btn-sm btn-danger">Excluir</button>
+                </form>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
