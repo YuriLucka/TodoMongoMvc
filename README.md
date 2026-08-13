@@ -46,6 +46,6 @@ Connection string e nomes de database/collection ficam em `appsettings.json`, se
 - CRUD via `IMongoCollection<T>`: `Find`, `InsertOneAsync`, `ReplaceOneAsync`, `DeleteOneAsync`, com filtros em LINQ (`t => t.Id == id`) traduzidos pelo driver.
 - `TodoService` é singleton no DI — `MongoClient` é thread-safe e caro de criar, então uma instância serve toda a app.
 
-## Projeto irmão
+## Projetos irmãos
 
-Existe também o [LeaderboardRedisMvc](https://github.com/YuriLucka/LeaderboardRedisMvc), mesma ideia mas com Redis — bom pra comparar como cada banco NoSQL resolve um problema diferente: aqui o Mongo guarda documento estruturado (fonte de verdade); lá o Redis vira estrutura de ranking e cache (acelerar leitura).
+Existem também o [LeaderboardRedisMvc](https://github.com/YuriLucka/LeaderboardRedisMvc) (Redis) e o [SocialGraphMvc](https://github.com/YuriLucka/SocialGraphMvc) (Neo4j) — mesma ideia, cada um mostrando o ponto forte de uma categoria de banco NoSQL diferente: aqui o Mongo guarda documento estruturado (fonte de verdade); o Redis vira estrutura de ranking e cache (acelerar leitura); o Neo4j resolve travessia de relacionamento (quem conecta com quem).

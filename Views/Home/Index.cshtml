@@ -37,12 +37,13 @@
 <pre><code>docker compose up -d   # MongoDB (27017)
 dotnet run</code></pre>
 
-<h3>Projeto irmão</h3>
+<h3>Projetos irmãos</h3>
 <p>
-    Existe também o <a href="https://github.com/YuriLucka/LeaderboardRedisMvc" target="_blank" rel="noopener">LeaderboardRedisMvc</a>,
-    mesma ideia mas com Redis — dá pra comparar como cada banco NoSQL resolve um problema diferente:
-    aqui o Mongo guarda documento estruturado (dado de negócio); lá o Redis vira estrutura de
-    ranking e cache (acelerar leitura, não é fonte de verdade).
+    Existem também o <a href="https://github.com/YuriLucka/LeaderboardRedisMvc" target="_blank" rel="noopener">LeaderboardRedisMvc</a> (Redis)
+    e o <a href="https://github.com/YuriLucka/SocialGraphMvc" target="_blank" rel="noopener">SocialGraphMvc</a> (Neo4j) —
+    dá pra comparar como cada categoria de banco resolve um problema diferente: aqui o Mongo guarda
+    documento estruturado (dado de negócio); o Redis vira estrutura de ranking e cache (acelerar
+    leitura, não é fonte de verdade); o Neo4j resolve travessia de relacionamento (quem conecta com quem).
 </p>
 
 <p>
